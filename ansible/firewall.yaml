@@ -1,0 +1,22 @@
+---
+
+# NOTE: This playbook *adds* rules.
+# It does not delete existing rules.
+
+- hosts: all
+  gather_facts: no
+  tasks:
+
+  - name: Installing firewalld
+    action: yum name=firewalld state=present 
+  
+  - name: Enable firewalld
+    service: name=firewalld state=started enabled=yes
+
+  - name: Allow http
+    command:  firewall-cmd --zone=public --add-port=80/tcp --permanent
+  - name: Allow https
+    command:  firewall-cmd --zone=public --add-port=443/tcp --permanent
+
+  - name: Bounce firewalld
+    service: name=firewalld state=restarted

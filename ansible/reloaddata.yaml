@@ -1,0 +1,12 @@
+---
+- hosts: all
+  gather_facts: no
+  tasks:
+  - name: create static_root dir
+    file: path=/ormucotest/ormucotest/static state=directory mode=0755
+  - name: django collectstatic
+    shell: /ormucotest/ormucotest/manage.py collectstatic --noinput chdir=/ormucotest/ormucotest
+  - name: django migrate
+    shell: /ormucotest/ormucotest/manage.py migrate --noinput chdir=/ormucotest/ormucotest
+  - name: django loaddata
+    shell: /ormucotest/ormucotest/manage.py loaddata user chdir=/ormucotest/ormucotest

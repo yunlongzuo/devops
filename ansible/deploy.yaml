@@ -1,0 +1,19 @@
+---
+- hosts: all
+  gather_facts: no
+  tasks:
+  - name: create dir
+    file: path=/ormucotest state=directory mode=0755
+
+  
+  - name: pull branch master
+    git:
+      repo=https://github.com/yunlongzuo/devops.git
+      dest=/ormucotest
+      accept_hostkey=yes
+
+- hosts: all
+  gather_facts: no
+  tasks:
+  - name: httpd restart
+    service: name=httpd state=restarted 

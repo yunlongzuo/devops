@@ -1,0 +1,10 @@
+---
+- name: Copy configuration files
+  hosts: all
+  gather_facts: no
+
+  tasks:
+  - name: httpd config file
+    copy: src=/etc/config/ormucotest.conf dest=/etc/httpd/conf.d/ormucotest.conf
+  - name: httpd ssl config file
+    copy: src=/etc/config/ormucotestssl.conf dest=/etc/httpd/conf.d/ormucotestssl.conf

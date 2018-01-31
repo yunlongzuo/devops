@@ -1,0 +1,21 @@
+- hosts: all
+  gather_facts: no
+  tasks:
+    - name: upgrade all packages
+      yum: name=* state=latest
+    - name: Installing nginx
+      action: yum name=nginx state=present 
+    - name: Installing python-pip
+      action: yum name=python-pip state=present
+    - name: Installing django
+      action: yum name=django state=present
+    - name: Installing git
+      action: yum name=git state=present
+    - name: Installing uwsgi and httpd
+      action: yum name={{ item }} state=present
+      with_items:
+       - uwsgi
+       - uwsgi-plugin-python
+       - mod_ssl
+       - mod_wsgi
+       - httpd
